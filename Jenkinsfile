@@ -1,45 +1,34 @@
 pipeline {
-    agent any  // Use any available agent
+    agent any
 
     tools {
-        gradle 'Gradle'  // Ensure this matches the name configured in Jenkins
+        gradle 'Gradle'
         jdk 'JDK'
     }
+
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/Manasvij12/MyGradleSelenium.git'
+                git branch: 'main', url: 'https://github.com/Manasvij12/MyGradleSelenium.git'
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                sh 'gradle build'  // Run Gradle build
+                sh 'gradle clean build'
             }
         }
 
-        stage('Test') {
+        stage('Run Selenium') {
             steps {
-                sh 'gradle test'  // Run unit tests
-            }
-        }
-
-        
-        
-       
-        stage('Run Application') {
-            steps {
-                // Start the JAR application
                 sh 'gradle run'
             }
         }
-
-        
     }
 
     post {
         success {
-            echo 'Build and deployment successful!'
+            echo 'Build and Selenium execution successful!'
         }
         failure {
             echo 'Build failed!'
