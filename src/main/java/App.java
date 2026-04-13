@@ -19,6 +19,7 @@ public class App {
         options.addArguments("--headless");   // Jenkins safe
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--remote-allow-origins=*");
 
         WebDriver driver = new ChromeDriver(options);
 
